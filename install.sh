@@ -6,7 +6,7 @@ rc=$?; if [ $rc -eq 0 ]
   else exit $rc
 fi
 
-printf "disabling sysrq... "
+printf "disabling sysrq (http://lmgtfy.com/?q=sysrq)... "
 echo "kernel.sysrq=0" >> /etc/sysctl.conf
 rc=$?; if [ $rc -eq 0 ]
   then echo "done"
