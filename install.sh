@@ -13,17 +13,6 @@ rc=$?; if [ $rc -eq 0 ]
   else exit $rc
 fi
 
-printf "copying ledbar file "
-if [ -f "$1" ]
-  then
-    printf "($1)... "
-    mkdir -p bin && cp $1 bin
-  else
-    printf "(default.ledbar)... "
-    mkdir -p bin && cp default.ledbar bin
-fi
-echo "done"
-
 echo "building executable... "
 cd src; make
 rc=$?; if [ -f "bin/ledbar" ]
@@ -32,7 +21,7 @@ rc=$?; if [ -f "bin/ledbar" ]
 fi
 
 printf "configuring autostart... "
-echo "sh $(pwd)/bin/ledbar" > /etc/init.d/ledbar-service
+echo "sh $(pwd)/bin/ledbar $(pwd)/res/default.ledbar" > /etc/init.d/ledbar-service
 chmod 755 /etc/init.d/ledbar-service
 update-rc.d ledbar-service defaults
 echo "done"
