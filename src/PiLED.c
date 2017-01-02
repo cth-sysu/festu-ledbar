@@ -5,6 +5,7 @@
 \**********************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "PiLED.h"
 #include "pixelmapping.h"
 #include "image_element.h"
@@ -27,27 +28,51 @@ int main(int argc, char **argv) {
     perror("init complete");
     sendByte(RESET_BYTE);
 
-    printf("args: %d\n", argc);
-
     char *filename;
+	char white = 0;
     if (argc < 2) {
         filename = "../res/default.ledbar";
         printf("using default.ledbar\n");
+    } else if (strcmp(argv[1], "white") == 0){
+        white = 1;
     } else {
         filename = argv[1];
         printf("using ledbarfile %s\n", filename);
     }
 
-    FILE *f;
+    unsigned char width;
+    unsigned char height;
+    if (white) {
+        width = argc < 3 ? 128 : atoi(argv[2]);
+        height = argc < 4 ? 8 : atoi(argv[3]);
+        
+        printf("Make all pixels white. width: %d, height: %d\n", width, height);
+        int bytesPerFrame = width * height * 3, n;
+        while (1) {
+            ResetStartTime();
+            gpioBit ( kGPIODirectionPort, kFromPi );
+            for (n = 0; n < bytesPerFrame; n++) {
+                sendByte(255);
+            }
 
-    f = fopen(filename, "rb");
-    if (f)
-    {
+            sendByte(RESET_BYTE);
+
+            WaitForSendingToComplete();
+            Wait(FRAME_INTERVALL);
+        }
+    } else {
+        FILE *f = fopen(filename, "rb");
+        if (!f) {
+            perror("no file found");
+            return;
+        }
         perror("file opened");
-        unsigned char width;
-        unsigned char height;
-            fread(&width, 1, 1, f);
-            fread(&height, 1, 1, f);
+
+        fread(&width, 1, 1, f);
+        fread(&height, 1, 1, f);
+        
+        printf("width: %d, height: %d\n", width, height);
+
         int bufferSize = width * height * 3;
         unsigned char data[bufferSize];
         while (1)
@@ -77,9 +102,9 @@ int main(int argc, char **argv) {
             }
             fseek ( f , 2, SEEK_SET );
         }
-    } else {
-    perror("no file found");
     }
+    
+    printf("Good bye.\n");
 }
 
 /**********************************************************************\
