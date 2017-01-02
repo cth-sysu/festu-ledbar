@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
 
   if (argc == 0) {
     perror("no ledbar file provided");
-    exit();
+    exit(1);
   }
 
 	FILE *f;
