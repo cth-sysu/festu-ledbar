@@ -1,9 +1,10 @@
 #!/bin/bash
 printf "configuring static ip... "
-ifconfig eth0 down
-ifconfig eth0 192.168.1.3
-ifconfig eth0 up
-echo "done"
+cp config/dhcpcd.conf /etc/dhcpcd.conf
+rc=$?; if [ $rc -eq 0 ]
+  then echo "done"
+  else exit $rc
+fi
 
 printf "disabling sysrq... "
 echo "kernel.sysrq=0" >> /etc/sysctl.conf
