@@ -4,6 +4,7 @@
 *                                                                      *
 \**********************************************************************/
 
+#include <stdio.h>
 #include "PiLED.h"
 #include "pixelmapping.h"
 #include "image_element.h"
@@ -26,16 +27,23 @@ int main(int argc, char **argv) {
 	perror("init complete");
 	sendByte(RESET_BYTE);
 
-  if (argc == 0) {
-    perror("no ledbar file provided");
-    exit(1);
-  }
+	printf("args: %d\n", argc);
+
+	char *filename;
+	if (argc < 2) {
+		filename = "../res/default.ledbar";
+		printf("using default.ledbar\n");
+	} else {
+		filename = argv[1];
+		printf("using ledbarfile %s\n", filename);
+	}
 
 	FILE *f;
 
-	f = fopen(argv[0], "rb");
+	f = fopen(filename, "rb");
 	if (f)
 	{
+        perror("file opened");
 		unsigned char width;
 		unsigned char height;
 	    	fread(&width, 1, 1, f);
