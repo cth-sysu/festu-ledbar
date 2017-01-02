@@ -69,7 +69,9 @@ int main(int argc, char **argv) {
 			}
 			fseek ( f , 2, SEEK_SET );
 		}
-	}
+	} else {
+    perror("no file found");
+  }
 }
 
 /**********************************************************************\
