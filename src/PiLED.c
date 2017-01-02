@@ -26,10 +26,14 @@ int main(int argc, char **argv) {
 	perror("init complete");
 	sendByte(RESET_BYTE);
 
+  if (argc == 0) {
+    perror("no ledbar file provided");
+    exit();
+  }
 
 	FILE *f;
 
-	f = fopen("test.ledbar", "rb");
+	f = fopen(argv[0], "rb");
 	if (f)
 	{
 		unsigned char width;
