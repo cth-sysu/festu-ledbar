@@ -14,6 +14,7 @@ rc=$?; if [ $rc -eq 0 ]
 fi
 
 echo "building executable... "
+chown -R pi "$(pwd)"
 cd src; make
 rc=$?; if [ -f "bin/ledbar" ]
   then echo "done"; cd ..
