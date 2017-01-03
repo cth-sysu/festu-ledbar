@@ -19,7 +19,7 @@ sudo mkdir /var/ledbar
 sudo git clone https://github.com/marcushultman/festu-ledbar.git /var/ledbar
 sudo /var/ledbar/install.sh
 
-/var/ledbar/res/current.ledbar är det ledbarsprogram som körs vid uppstart
+/var/ledbar/res/default.ledbar är det ledbarsprogram som körs vid uppstart
 
 ------------------
 Stoppa autostartat program
