@@ -1,48 +1,37 @@
-------------------
-Terminologi
-------------------
-ledbarsprogram - Fil innehållandes det som ska visas på baren
+# FestU LED
 
-------------------
-Inloggning
-------------------
-IP: 192.168.1.3
-User: pi
-Password: raspberry
+## Terminologi
+_ledbarsprogram_ - fil innehållandes det som ska visas på baren
 
-------------------
-Installation
-------------------
-Installera raspbian (t.ex. lite/jessie) på sdkortet
+## Inloggning
+IP: `192.168.1.3`
+User: `pi`
+Password: `raspberry`
 
-sudo mkdir /var/ledbar
-sudo git clone https://github.com/marcushultman/festu-ledbar.git /var/ledbar
-sudo /var/ledbar/install.sh
+## Installation
+Installera [Raspbian](https://www.raspberrypi.org/downloads/raspbian/) (t.ex. [Lite](https://downloads.raspberrypi.org/raspbian_lite_latest)) på sd-kortet.
 
-/var/ledbar/res/default.ledbar är det ledbarsprogram som körs vid uppstart
+Ladda ner och packa upp [repot](https://github.com/marcushultman/festu-ledbar/archive/master.zip), eller klona med `git`:
+`git clone https://github.com/marcushultman/festu-ledbar.git`
+Simpel installation med script:
+`sudo festu-ledbar/install.sh` (`sudo` behövs för configurering av statisk ip samt autostart)
 
-------------------
-Stoppa autostartat program
-------------------
+Föra att köra igång programmet manuellt:
+`bin/ledbar` (läser `res/default.ledbar` som default ledbarsprogram)
+
+## Stoppa autostartat program
 När programmet körs används mycket resurser vilket gör raspberry pi:en långsam.
 För att avsluta process som körs
-sudo pkill ledbar
+`sudo pkill ledbar`
 
-------------------
-Manuell körning av programmet
-------------------
-Programet läggs i /var/ledbar/bin/ av installationsskriptet
-ledbar [ledbarsprogram]
-    Pixelinformationen i filen som pekas ut av ledbarsprogram skrivs till baren.
-    Om ingen fil anges är standard ../res/default.ledbar
-ledbar white
-    Testläge alla dioder sätts till vitt ljus. Antal pixlar antas vara 128 * 8.
-ledbar white width height
-    Testläge alla dioder sätts till vitt ljus. width och height anger antal pxlar.
+## Program `bin/ledbar`
+`ledbar _ledbarsprogram_`
+⋅⋅⋅Pixelinformationen i _ledbarsprogram_ skrivs till baren.
+⋅⋅⋅Om ingen fil anges är standard `res/default.ledbar`
+`ledbar white`
+⋅⋅⋅Testläge alla dioder sätts till vitt ljus. Antal pixlar antas vara 128 * 8.
+`ledbar white _width_ _height_`
+⋅⋅⋅Testläge alla dioder sätts till vitt ljus. _width_ och _height_ anger antal pixlar.
 
-------------------
-Filformat ledbarsprogramfil
-------------------
-första byten anger antal pixlar i bredd på baren
-andra byten anger antal pixlar i höjd på baren
-därefter följer den pixeldata som ska skickas till baren frame för frame
+## Filformat ledbarsprogramfil
+Första byten anger antal pixlar i bredd på baren. Andra byten anger antal pixlar i höjd på baren. Därefter följer den pixeldata som ska skickas till baren frame för frame
