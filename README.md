@@ -4,12 +4,12 @@
 _ledbarsprogram_ - fil innehållandes det som ska visas på baren
 
 ## Inloggning
-IP: `192.168.1.3`
+IP: `192.168.1.123`
 User: `pi`
 Password: `raspberry`
 
 ## Installation
-Installera [Raspbian](https://www.raspberrypi.org/downloads/raspbian/) (t.ex. [Lite](https://downloads.raspberrypi.org/raspbian_lite_latest)) på sd-kortet.
+Installera [Raspbian](https://www.raspberrypi.org/downloads/raspbian/) (t.ex. [Lite](https://downloads.raspberrypi.org/raspbian_lite_latest)) på SD-kortet.
 
 Ladda ner och packa upp [repot](https://github.com/marcushultman/festu-ledbar/archive/master.zip), eller klona med `git`:
 `git clone https://github.com/marcushultman/festu-ledbar.git`
